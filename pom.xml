@@ -16,8 +16,23 @@
                     <target>7</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <id>spring-snapshot</id>
+            <name>Spring Snapshot Repository</name>
+            <url>http://repo.spring.io/snapshot</url>
+        </repository>
+    </repositories>
+    <properties>
+        <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -79,6 +94,35 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>4.1.1.RELEASE</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>4.1.1.RELEASE</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>4.1.1.RELEASE</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>4.1.1.RELEASE</version>
+            <type>jar</type>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>
