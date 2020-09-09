@@ -54,7 +54,7 @@ public class CartController {
             throw new IllegalArgumentException(new Exception());
         }
 
-        cart.addCartItem(new CartItem(product));
+        cart.setCartItem(new CartItem(product));
 
         cartDao.update(sessionId, cart);
     }

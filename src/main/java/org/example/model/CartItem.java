@@ -23,7 +23,12 @@ public class CartItem implements Serializable{
     @JoinColumn(name = "productId")
     private Product product;
 
+    public CartItem(Product prod){
+        this.setProduct(prod);
+    }
+
     private int quantity;
+
     private double totalPrice;
 
     public int getCartItemId() {

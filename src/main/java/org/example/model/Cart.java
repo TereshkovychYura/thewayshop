@@ -29,6 +29,10 @@ public class Cart implements Serializable {
 
     private double grandTotal;
 
+    public Cart (String id){
+        this.setCartId(id);
+    }
+
     public String getCartId() {
         return cartId;
     }
@@ -43,6 +47,14 @@ public class Cart implements Serializable {
 
     public void setCartItems(List<CartItem> cartItems) {
         this.cartItems = cartItems;
+    }
+
+    public void setCartItem(CartItem cartItem) {
+        this.cartItems.add(cartItem);
+    }
+
+    public void removeCartItem(CartItem cartItem) {
+        this.cartItems.remove(cartItem);
     }
 
     public Customer getCustomer() {
