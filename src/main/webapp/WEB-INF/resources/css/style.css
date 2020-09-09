@@ -2612,6 +2612,15 @@ p{
     border-radius: 100%;
     background: rgba(0, 0, 0, 0.2);
 }
+.login-head{
+    size: 33px;
+}
+.btn-login{
+    margin-left: 89%;
+}
+.admin-head{
+    margin-left: 45%;
+}
  
 
 

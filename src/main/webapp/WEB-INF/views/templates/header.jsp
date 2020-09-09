@@ -87,11 +87,23 @@
                 </div>
                 <div class="our-link">
                     <ul>
+                        <li><a href="<c:url value="/admin/" />">Admin</a></li>
+                        <c:choose>
+                        <c:when test="${pageContext.request.userPrincipal.name != null}">
+                            <li>
+                                Welcome: ${pageContext.request.userPrincipal.name} | <a href="<c:url
+                                value="/j_spring_security_logout" />">Logout</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
                         <li><a href="#">My Account</a></li>
+                        </c:otherwise>
+                        </c:choose>
                         <li><a href="#">Our location</a></li>
                         <li><a href="<c:url value="/contact"/>">Contact Us</a></li>
                     </ul>
                 </div>
+
             </div>
         </div>
     </div>

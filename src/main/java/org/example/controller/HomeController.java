@@ -23,8 +23,8 @@ public class HomeController {
         return "service";
     }
 
-    @RequestMapping("/*")
-    public String notfound(){
-        return "404";
-    }
+//    @RequestMapping("/*")
+//    public String notfound(){
+//        return "404";
+//    }
 }
