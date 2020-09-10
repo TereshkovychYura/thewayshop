@@ -181,7 +181,7 @@
                                                             <li><a href="#" data-toggle="tooltip" data-placement="right" title="Compare"><i class="fas fa-sync-alt"></i></a></li>
                                                             <li><a href="<spring:url value="/productList/addToWishList/${product.id}"/>" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"> <c:if test = "${product.wish == true}"> <i class="fas fa-heart"></i> </c:if> <c:if test = "${product.wish == false}"><i class="far fa-heart"></i> </c:if>  </a></li>
                                                         </ul>
-                                                        <a class="cart" href="<spring:url value="/productList/addToCart/${product.id}"/>">Add to Cart</a>
+                                                        <a class="cart" href="<spring:url value="/productList/removeFromCart/${product.id}"/>">Remove from cart</a>
                                                     </div>
                                                 </div>
                                                 <div class="why-text">

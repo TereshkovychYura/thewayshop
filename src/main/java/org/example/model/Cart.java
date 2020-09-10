@@ -11,65 +11,43 @@ import java.util.List;
  */
 
 @Entity
-public class Cart implements Serializable {
+public class Cart {
+    public String getId() {
+        return Id;
+    }
 
-    private static final long serialVersionUID = 3940548625296145582L;
+    public void setId(String id) {
+        Id = id;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
     @Id
-    @GeneratedValue
-    private String cartId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String Id;
+    private String productId;
+    private int amount;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<CartItem> cartItems;
-
-    @OneToOne
-    @JoinColumn(name = "customerId")
-    @JsonIgnore
-    private Customer customer;
-
-    private double grandTotal;
-
-    public Cart (String id){
-        this.setCartId(id);
+    public Cart(Product prod, int amount){
+        this.productId = prod.getId();
+        this.amount = amount;
     }
 
-    public String getCartId() {
-        return cartId;
-    }
+    public Cart() {
 
-    public void setCartId(String cartId) {
-        this.cartId = cartId;
-    }
-
-    public List<CartItem> getCartItems() {
-        return cartItems;
-    }
-
-    public void setCartItems(List<CartItem> cartItems) {
-        this.cartItems = cartItems;
-    }
-
-    public void setCartItem(CartItem cartItem) {
-        this.cartItems.add(cartItem);
-    }
-
-    public void removeCartItem(CartItem cartItem) {
-        this.cartItems.remove(cartItem);
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public double getGrandTotal() {
-        return grandTotal;
-    }
-
-    public void setGrandTotal(double grandTotal) {
-        this.grandTotal = grandTotal;
     }
 }

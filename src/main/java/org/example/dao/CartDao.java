@@ -1,14 +1,15 @@
 package org.example.dao;
 
 import org.example.model.Cart;
+import org.example.model.Product;
+
+import java.util.List;
 
 public interface CartDao {
 
-    Cart create(Cart cart);
+    void addToCart(Product prod, int amount);
 
-    Cart read(String cartId);
+    void removeFromCart(Product prod);
 
-    void update ( String cartId, Cart cart);
-
-    void delete (String cartId);
+    List<Product> getProductsFromCart();
 }

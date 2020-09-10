@@ -1,52 +1,53 @@
-package org.example.dao.implementation;
+package org.example.dao.implement;
 
 import org.example.dao.CartDao;
 import org.example.model.Cart;
+import org.example.model.Product;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
+@Transactional
 public class CartDaoImplement implements CartDao {
+    @Autowired
+    private SessionFactory sessionFactory;
 
-    private Map<String, Cart> listOfCarts;
 
-    public CartDaoImplement() {
-        listOfCarts = new HashMap<String, Cart>();
+    public void addToCart(Product prod, int amount) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(new Cart(prod, amount));
+        session.flush();
     }
 
-    public Cart create(Cart cart) {
-        if (listOfCarts.keySet().contains(cart.getCartId())) {
-            throw new IllegalArgumentException(String.format("Can not create a cart. A cart with the given id(%) " +
-                    "already " + "exists", cart.getCartId()));
+    public void removeFromCart(Product prod) {
+        Session session=sessionFactory.getCurrentSession();
+        Query query = session.createQuery("delete Cart where Id =" +prod.getId());
+        query.executeUpdate();
+
+        session.flush();
+    }
+
+    public List<Product> getProductsFromCart() {
+        Session session=sessionFactory.getCurrentSession();
+
+        Query query=session.createQuery("from Cart");
+        List<Cart> carts = query.list();
+
+        query=session.createQuery("from Product");
+        List<Product> products = query.list();
+
+        List<Product> retproducts = new ArrayList<Product>();
+        for (Cart cart: carts) {
+            retproducts.add( (Product)session.get(Product.class, cart.getProductId()));
         }
-
-        listOfCarts.put(cart.getCartId(), cart);
-
-        return cart;
-    }
-
-    public Cart read(String cartId) {
-        return listOfCarts.get(cartId);
-    }
-
-    public void update(String cartId, Cart cart) {
-        if (!listOfCarts.keySet().contains(cartId)) {
-            throw new IllegalArgumentException(String.format("Can not update cart. The cart with the given id(%) " +
-                    "does not " + "exist", cart.getCartId()));
-        }
-
-        listOfCarts.put(cartId, cart);
-    }
-
-    public void delete (String cartId) {
-        if (!listOfCarts.keySet().contains(cartId)) {
-            throw new IllegalArgumentException(String.format("Can not delete cart. A cart with the given id(%) " +
-                    "does not " +
-                    "exist", cartId));
-        }
-
-        listOfCarts.remove(cartId);
+        session.flush();
+        return retproducts;
     }
 }

@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.dao.CartDao;
 import org.example.dao.ProductDao;
 import org.example.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,20 @@ public class ProductController {
 
     @Autowired
     private ProductDao productDao;
+    @Autowired
+    private CartDao cartDao;
     @RequestMapping("/productList")
     public String getProducts(Model model){
         List<Product> products = productDao.getAllProducts();
         model.addAttribute("products", products);
         return "productList";
+    }
+
+    @RequestMapping("/cart")
+    public String getCartProducts(Model model){
+        List<Product> products = cartDao.getProductsFromCart();
+        model.addAttribute("products", products);
+        return "cart";
     }
 
     @RequestMapping("/wishList")
@@ -53,6 +63,20 @@ public class ProductController {
         else{
             productDao.addToWishList(Id, true);
         }
+        return "redirect:/productList";
+    }
+
+    @RequestMapping(value ="/productList/addToCart/{Id}")
+    public String addToCart(@PathVariable String Id){
+        Product product = productDao.getProductById(Id);
+        cartDao.addToCart(product,1);
+        return "redirect:/productList";
+    }
+
+    @RequestMapping(value ="/productList/removeFromCart/{Id}")
+    public String removeFromCart(@PathVariable String Id){
+        Product product = productDao.getProductById(Id);
+        cartDao.removeFromCart(product);
         return "redirect:/productList";
     }
 }
